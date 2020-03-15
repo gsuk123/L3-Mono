@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PagedList;
 using ProjectVehicle.DAL;
 using ProjectVehicle.Model;
 using ProjectVehicle.Model.Common;
@@ -21,12 +22,14 @@ namespace ProjectVehicle.WebAPI.Controllers
     {
         private readonly IVehicleMakeService vehicleMakeService;
         private readonly IMapper mapper;
+        private readonly IHelperFactory helperFactory;
 
 
-        public VehicleMakeController(IVehicleMakeService vehicleMakeService, IMapper mapper)
+        public VehicleMakeController(IVehicleMakeService vehicleMakeService, IMapper mapper, IHelperFactory helperFactory)
         {
             this.mapper = mapper;
             this.vehicleMakeService = vehicleMakeService;
+            this.helperFactory = helperFactory;
         }
 
         [HttpGet]
@@ -47,18 +50,7 @@ namespace ProjectVehicle.WebAPI.Controllers
                 return InternalServerError();
             }
         }
-        [HttpGet]
-        public async Task<IEnumerable<VehicleMakeRestModel>> GetVehicleMakeByFilter(string filter)
-        {
-            var vehicleMake = await vehicleMakeService.GetVehicleMakesByFilterService(filter);
-            var vehicleMakeList = new List<VehicleMakeRestModel>();
-            foreach (var v in vehicleMake)
-            {
-                VehicleMakeRestModel vehicleMakeRest = mapper.Map<VehicleMakeRestModel>(v);
-                vehicleMakeList.Add(vehicleMakeRest);
-            }
-            return vehicleMakeList;
-        }
+
 
         [HttpGet]        
         public async Task<IEnumerable<VehicleMakeRestModel>> GetAllVehicles()
@@ -78,10 +70,6 @@ namespace ProjectVehicle.WebAPI.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
                 var vehicleMake = mapper.Map<IVehicleMake>(vehicleMakeRM);
                 await vehicleMakeService.CreateVehicleMakeServiceAsync(vehicleMake);
                 return Ok(vehicleMake);
@@ -98,10 +86,6 @@ namespace ProjectVehicle.WebAPI.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
                 var vehicleMake = mapper.Map<IVehicleMake>(vehicleMakeRM);
                 await vehicleMakeService.EditVehicleMakeServiceAsync(vehicleMake, id);
                 return Ok(vehicleMake);
@@ -126,6 +110,30 @@ namespace ProjectVehicle.WebAPI.Controllers
                 return InternalServerError();
             }
 
+        }
+
+        [HttpGet]
+        public async Task<IPagedList<VehicleMakeRestModel>> Find(
+            string sortVehicle = null, 
+            string searchVehicle = null,
+            int? pageVehicle = null)
+        {
+            var filter = helperFactory.CreateVehicleFiltering();
+            filter.Filter = searchVehicle;
+            var sort = helperFactory.CreateVehicleSorting();
+            sort.Sort = sortVehicle;
+            var page = helperFactory.CreateVehiclePaging();
+            page.Page = pageVehicle;
+
+            var vehicles = await vehicleMakeService.FindVehicleMakeServiceAsync(sort, filter, page);
+            var vehiclesList = new List<VehicleMakeRestModel>();
+            foreach(var v in vehicles)
+            {
+                VehicleMakeRestModel vehicleMakeRM = mapper.Map<VehicleMakeRestModel>(v);
+                vehiclesList.Add(vehicleMakeRM);
+            }
+            var vehiclePagedList = new StaticPagedList<VehicleMakeRestModel>(vehiclesList, vehicles.PageNumber, vehicles.PageSize, vehicles.TotalItemCount);
+            return vehiclePagedList;
         }
 
     }

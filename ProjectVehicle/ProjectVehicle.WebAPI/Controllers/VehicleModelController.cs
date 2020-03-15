@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PagedList;
 using ProjectVehicle.Model.Common;
 using ProjectVehicle.Service.Common;
 using ProjectVehicle.WebAPI.Models;
@@ -16,11 +17,13 @@ namespace ProjectVehicle.WebAPI.Controllers
     {
         private readonly IVehicleModelService vehicleModelService;
         private readonly IMapper mapper;
+        private readonly IHelperFactory helperFactory;
 
-        public VehicleModelController(IVehicleModelService vehicleModelService, IMapper mapper)
+        public VehicleModelController(IVehicleModelService vehicleModelService, IMapper mapper, IHelperFactory helperFactory)
         {
             this.vehicleModelService = vehicleModelService;
             this.mapper = mapper;
+            this.helperFactory = helperFactory;
         }
 
         [HttpGet]
@@ -60,10 +63,6 @@ namespace ProjectVehicle.WebAPI.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
                 var vehicleModel = mapper.Map<IVehicleModel>(vehicleModelRM);
                 await vehicleModelService.CreateVehicleModelServiceAsync(vehicleModel);
                 return Ok(vehicleModel);
@@ -80,10 +79,6 @@ namespace ProjectVehicle.WebAPI.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
                 var vehicleModel = mapper.Map<IVehicleModel>(vehicleModelRM);
                 await vehicleModelService.EditVehicleModelServiceAsync(vehicleModel, id);
                 return Ok(vehicleModel);
@@ -106,6 +101,35 @@ namespace ProjectVehicle.WebAPI.Controllers
             {
                 return InternalServerError();
             }
+        }
+
+        
+        [HttpGet]
+        public async Task<IPagedList<VehicleModelRestModel>> Find(
+            string sortVehicle = null,            
+            string searchVehicle = null,
+            int? pageVehicle = null,
+            int? makeId = null)
+        {
+
+
+            var filter = helperFactory.CreateVehicleFiltering();
+            filter.Filter = searchVehicle;
+            var sort = helperFactory.CreateVehicleSorting();
+            sort.Sort = sortVehicle;
+            var page = helperFactory.CreateVehiclePaging();
+            page.Page = pageVehicle;
+
+            var vehicles = await vehicleModelService.FindVehicleModelServiceAsync(sort, filter, page, makeId);
+            var vehiclesList = new List<VehicleModelRestModel>();
+            foreach (var v in vehicles)
+            {
+                VehicleModelRestModel vehicleModelRM = mapper.Map<VehicleModelRestModel>(v);
+                vehiclesList.Add(vehicleModelRM);
+            }
+            var vehiclePagedList = new StaticPagedList<VehicleModelRestModel>(vehiclesList, vehicles.PageNumber, vehicles.PageSize, vehicles.TotalItemCount);
+            return vehiclePagedList;
+
         }
 
     }

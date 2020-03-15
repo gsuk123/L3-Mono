@@ -43,6 +43,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -76,6 +79,10 @@
     <ProjectReference Include="..\ProjectVehicle.Repository.Common\ProjectVehicle.Repository.Common.csproj">
       <Project>{9ECF3113-15EC-48A8-B5CF-452F45960E7D}</Project>
       <Name>ProjectVehicle.Repository.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectVehicle.Service.Common\ProjectVehicle.Service.Common.csproj">
+      <Project>{93387021-2A8F-42AC-B50F-6E0B2FA3E9C2}</Project>
+      <Name>ProjectVehicle.Service.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

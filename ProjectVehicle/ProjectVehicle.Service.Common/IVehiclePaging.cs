@@ -8,6 +8,6 @@ namespace ProjectVehicle.Service.Common
 {
     public interface IVehiclePaging
     {
-        int Page { get; set; }
+        int? Page { get; set; }
     }
 }

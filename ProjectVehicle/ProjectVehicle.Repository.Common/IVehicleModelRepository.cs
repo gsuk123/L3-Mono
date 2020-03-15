@@ -1,5 +1,7 @@
-﻿using ProjectVehicle.DAL.Entities;
+﻿using PagedList;
+using ProjectVehicle.DAL.Entities;
 using ProjectVehicle.Model.Common;
+using ProjectVehicle.Service.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +17,7 @@ namespace ProjectVehicle.Repository.Common
         Task CreateVehicleModelAsync(IVehicleModel vehicleModel);
         Task DeleteVehicleModelAsync(int id);
         Task EditVehicleModelAsync(IVehicleModel vehicleModel, int id);
+
+        Task<IPagedList<IVehicleModel>> FindVehicleModelAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null);
     }
 }

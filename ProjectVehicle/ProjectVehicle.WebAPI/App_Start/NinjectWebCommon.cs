@@ -6,6 +6,7 @@ namespace ProjectVehicle.WebAPI
     using AutoMapper;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
+    using Ninject.Extensions.Factory;
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
     using Ninject.Web.WebApi.Filter;
@@ -72,7 +73,7 @@ namespace ProjectVehicle.WebAPI
         /// <param name="kernel">The kernel.</param>
         public static void RegisterServices(IKernel kernel)
         {
-            //kernel.Bind<IHelperFactory>().ToFactory();
+            kernel.Bind<IHelperFactory>().ToFactory();
             kernel.Bind<IVehicleSorting>().To<VehicleSorting>();
             kernel.Bind<IVehiclePaging>().To<VehiclePaging>();
             kernel.Bind<IVehicleFiltering>().To<VehicleFiltering>();
@@ -80,7 +81,7 @@ namespace ProjectVehicle.WebAPI
             kernel.Bind<IVehicleMakeRepository>().To<VehicleMakeRepository>();
             kernel.Bind<IVehicleModelService>().To<VehicleModelService>();
             kernel.Bind<IVehicleModelRepository>().To<VehicleModelRepository>();
-            //kernel.Bind<IRepository>().To<Repository>();
+            
             kernel.Bind<IMapper>().ToMethod((context) =>
             {
 

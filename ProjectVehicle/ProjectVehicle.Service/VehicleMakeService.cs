@@ -1,4 +1,5 @@
-﻿using ProjectVehicle.Model;
+﻿using PagedList;
+using ProjectVehicle.Model;
 using ProjectVehicle.Model.Common;
 using ProjectVehicle.Repository.Common;
 using ProjectVehicle.Service.Common;
@@ -23,10 +24,6 @@ namespace ProjectVehicle.Service
         {
             return vehicleMakeRepository.GetVehicleMakeAsync(id);            
         }
-        public Task<IEnumerable<IVehicleMake>> GetVehicleMakesByFilterService(string filter)
-        {
-            return vehicleMakeRepository.GetVehicleMakesByFilter(filter);
-        }
 
         public Task<IEnumerable<IVehicleMake>> GetVehicleMakesServiceAsync()
         {
@@ -47,5 +44,10 @@ namespace ProjectVehicle.Service
             return vehicleMakeRepository.DeleteVehicleMakeAsync(id);            
         }
 
+        
+        public Task<IPagedList<IVehicleMake>> FindVehicleMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
+        {
+            return vehicleMakeRepository.FindVehicleMakeAsync(sort, filter, page);
+        }
     }
 }

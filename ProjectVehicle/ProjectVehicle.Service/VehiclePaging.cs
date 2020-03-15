@@ -9,6 +9,6 @@ namespace ProjectVehicle.Service
 {
     public class VehiclePaging : IVehiclePaging
     {
-        public int Page { get; set; }
+        public int? Page { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ProjectVehicle.Model;
+﻿using PagedList;
+using ProjectVehicle.Model;
 using ProjectVehicle.Model.Common;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ namespace ProjectVehicle.Service.Common
         Task DeleteVehicleMakeServiceAsync(int id);
         Task<IEnumerable<IVehicleMake>> GetVehicleMakesServiceAsync();
         Task CreateVehicleMakeServiceAsync(IVehicleMake vehicleMake);
-        Task EditVehicleMakeServiceAsync(IVehicleMake vehicleMake, int id);
+        Task EditVehicleMakeServiceAsync(IVehicleMake vehicleMake, int id);        
+        
+        Task<IPagedList<IVehicleMake>> FindVehicleMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page);
 
-        Task<IEnumerable<IVehicleMake>> GetVehicleMakesByFilterService(string filter);
 
     }
 }

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using PagedList;
 using ProjectVehicle.DAL;
 using ProjectVehicle.DAL.Entities;
 using ProjectVehicle.Model;
 using ProjectVehicle.Model.Common;
 using ProjectVehicle.Repository.Common;
+using ProjectVehicle.Service.Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -24,13 +26,6 @@ namespace ProjectVehicle.Repository
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<IVehicleMake>> GetVehicleMakesByFilter(string filter)
-        {
-            var vehicleMakes = await base.GetAllAsync();
-            vehicleMakes = vehicleMakes.Where(v => v.ManufacturerName.Contains(filter) || v.MadeIn.Contains(filter));
-            var mappedResult = mapper.Map<List<IVehicleMake>>(vehicleMakes.ToList());
-            return mappedResult;
-        }
         public async Task<IVehicleMake> GetVehicleMakeAsync(int id)
         {
             var vehicleMakeEntity = await base.GetIdAsync(id);
@@ -61,6 +56,37 @@ namespace ProjectVehicle.Repository
             var vehicleMakeEntity = await base.GetIdAsync(id);
             await base.DeleteAsync(vehicleMakeEntity);         
             
+        }
+
+        public async Task<IPagedList<IVehicleMake>> FindVehicleMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
+        {
+            var vehicles = await base.GetAllAsync();
+
+            var searchVehicle = filter.Filter;
+            var sortVehicle = sort.Sort;
+
+            if (!String.IsNullOrEmpty(searchVehicle))
+            {
+                vehicles = vehicles.Where(v => v.ManufacturerName.Contains(searchVehicle)
+                                       || v.MadeIn.Contains(searchVehicle));
+            }
+            switch (sortVehicle)
+            {
+                case "name_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.ManufacturerName);
+                    break;
+                case "madein_desc":
+                    vehicles = vehicles.OrderByDescending(v => v.MadeIn);
+                    break;
+                default:
+                    vehicles = vehicles.OrderBy(v => v.ManufacturerName);
+                    break;
+            }
+            var mappedList = mapper.Map<List<IVehicleMake>>(vehicles.ToList());
+            var pagedList = mappedList.ToPagedList(page.Page ?? 1, 3);
+
+            return pagedList;
+
         }
 
     }

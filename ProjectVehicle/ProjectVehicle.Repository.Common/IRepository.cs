@@ -17,14 +17,5 @@ namespace ProjectVehicle.Repository.Common
         Task<TEntity> AddAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity updated, int id);
 
-        //TEntity Get(int id);
-        //IEnumerable<TEntity> GetAll();
-        //IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
-        //void Add(TEntity entity);
-        //void Remove(TEntity entity);
-
-        //IQueryable<TEntity> FindByCondition(Expression<Func<TEntity, bool>> expression);
-
-
     }
 }

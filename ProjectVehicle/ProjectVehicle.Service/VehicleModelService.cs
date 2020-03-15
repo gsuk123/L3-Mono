@@ -1,4 +1,5 @@
-﻿using ProjectVehicle.Model.Common;
+﻿using PagedList;
+using ProjectVehicle.Model.Common;
 using ProjectVehicle.Repository.Common;
 using ProjectVehicle.Service.Common;
 using System;
@@ -40,6 +41,11 @@ namespace ProjectVehicle.Service
         public Task DeleteVehicleModelServiceAsync(int id)
         {
             return vehicleModelRepository.DeleteVehicleModelAsync(id);            
+        }
+
+        public Task<IPagedList<IVehicleModel>> FindVehicleModelServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null)
+        {
+            return vehicleModelRepository.FindVehicleModelAsync(sort, filter, page, makeId);
         }
 
     }
