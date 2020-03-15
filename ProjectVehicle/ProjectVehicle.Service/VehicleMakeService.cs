@@ -19,32 +19,32 @@ namespace ProjectVehicle.Service
             this.vehicleMakeRepository = vehicleMakeRepository;
         }
 
-        public async Task<IVehicleMake> GetVehicleMakeById(int id)
+        public Task<IVehicleMake> GetVehicleMakeServiceAsync(int id)
         {
-            return await vehicleMakeRepository.GetVehicleMakeIdAsync(id);            
+            return vehicleMakeRepository.GetVehicleMakeAsync(id);            
         }
-        public async Task<IEnumerable<IVehicleMake>> GetVehicleMakesByFilterService(string filter)
+        public Task<IEnumerable<IVehicleMake>> GetVehicleMakesByFilterService(string filter)
         {
-            return await vehicleMakeRepository.GetVehicleMakesByFilter(filter);
-        }
-
-        public  Task<IEnumerable<IVehicleMake>> GetVehicleMakesAsync()
-        {
-            return  vehicleMakeRepository.GetSomeVehiclesAsync();            
+            return vehicleMakeRepository.GetVehicleMakesByFilter(filter);
         }
 
-        public async Task CreateVehicleMakeServiceAsync(IVehicleMake vehicleMake)
+        public Task<IEnumerable<IVehicleMake>> GetVehicleMakesServiceAsync()
         {
-            await vehicleMakeRepository.CreateVehicleMakeAsync(vehicleMake);
+            return vehicleMakeRepository.GetAllVehiclesAsync();               
         }
 
-        public async Task EditVehicleMakeServiceAsync(IVehicleMake vehicleMake, int id)
+        public Task CreateVehicleMakeServiceAsync(IVehicleMake vehicleMake)
         {
-            await vehicleMakeRepository.EditVehicleMakeAsync(vehicleMake, id);
+            return vehicleMakeRepository.CreateVehicleMakeAsync(vehicleMake);
         }
-        public async Task DeleteVehicleMakeService(int id)
+
+        public Task EditVehicleMakeServiceAsync(IVehicleMake vehicleMake, int id)
         {
-            await vehicleMakeRepository.DeleteVehicleMakeAsync(id);            
+            return vehicleMakeRepository.EditVehicleMakeAsync(vehicleMake, id);
+        }
+        public Task DeleteVehicleMakeServiceAsync(int id)
+        {
+            return vehicleMakeRepository.DeleteVehicleMakeAsync(id);            
         }
 
     }

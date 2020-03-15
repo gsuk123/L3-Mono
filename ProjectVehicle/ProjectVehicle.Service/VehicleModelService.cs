@@ -18,31 +18,29 @@ namespace ProjectVehicle.Service
             this.vehicleModelRepository = vehicleModelRepository;
         }
 
-        public async Task<IVehicleModel> GetVehicleModelById(int id)
+        public Task<IVehicleModel> GetVehicleModelServiceAsync(int id)
         {
-            return await vehicleModelRepository.GetVehicleModelIdAsync(id);            
+            return vehicleModelRepository.GetVehicleModelIdAsync(id);            
         }
 
-
-        public async Task<IEnumerable<IVehicleModel>> GetVehicleModelsAsync()
+        public Task<IEnumerable<IVehicleModel>> GetVehiclesModelsServiceAsync()
         {
-            return await vehicleModelRepository.GetSomeVehiclesModelsAsync();            
+            return vehicleModelRepository.GetVehiclesModelsAsync();            
         }
 
-        public async Task CreateVehicleModelServiceAsync(IVehicleModel vehicleModel)
+        public Task CreateVehicleModelServiceAsync(IVehicleModel vehicleModel)
         {
-            await vehicleModelRepository.CreateVehicleModelAsync(vehicleModel);
+            return vehicleModelRepository.CreateVehicleModelAsync(vehicleModel);
         }
-        public async Task EditVehicleModelServiceAsync(IVehicleModel vehicleModel, int id)
+        public Task EditVehicleModelServiceAsync(IVehicleModel vehicleModel, int id)
         {
-            await vehicleModelRepository.EditVehicleModelAsync(vehicleModel, id);
-        }
-
-        public async Task DeleteVehicleModelService(int id)
-        {
-            await vehicleModelRepository.DeleteVehicleModelAsync(id);            
+            return vehicleModelRepository.EditVehicleModelAsync(vehicleModel, id);
         }
 
+        public Task DeleteVehicleModelServiceAsync(int id)
+        {
+            return vehicleModelRepository.DeleteVehicleModelAsync(id);            
+        }
 
     }
 }

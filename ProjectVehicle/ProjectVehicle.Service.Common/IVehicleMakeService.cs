@@ -10,9 +10,9 @@ namespace ProjectVehicle.Service.Common
 {
     public interface IVehicleMakeService
     {
-        Task<IVehicleMake> GetVehicleMakeById(int id);
-        Task DeleteVehicleMakeService(int id);
-        Task<IEnumerable<IVehicleMake>> GetVehicleMakesAsync();
+        Task<IVehicleMake> GetVehicleMakeServiceAsync(int id);
+        Task DeleteVehicleMakeServiceAsync(int id);
+        Task<IEnumerable<IVehicleMake>> GetVehicleMakesServiceAsync();
         Task CreateVehicleMakeServiceAsync(IVehicleMake vehicleMake);
         Task EditVehicleMakeServiceAsync(IVehicleMake vehicleMake, int id);
 

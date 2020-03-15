@@ -31,14 +31,14 @@ namespace ProjectVehicle.Repository
             var mappedResult = mapper.Map<List<IVehicleMake>>(vehicleMakes.ToList());
             return mappedResult;
         }
-        public async Task<IVehicleMake> GetVehicleMakeIdAsync(int id)
+        public async Task<IVehicleMake> GetVehicleMakeAsync(int id)
         {
             var vehicleMakeEntity = await base.GetIdAsync(id);
             IVehicleMake vehicleMake = mapper.Map<IVehicleMake>(vehicleMakeEntity);
             return vehicleMake;
         }
 
-        public async Task<IEnumerable<IVehicleMake>> GetSomeVehiclesAsync()
+        public async Task<IEnumerable<IVehicleMake>> GetAllVehiclesAsync()
         {
             var entites = await base.GetAllAsync();
             var mappedResult = mapper.Map<List<IVehicleMake>>(entites.ToList());
@@ -62,38 +62,6 @@ namespace ProjectVehicle.Repository
             await base.DeleteAsync(vehicleMakeEntity);         
             
         }
-
-
-        //public IEnumerable<IVehicleMake> GetSomeVehicles()
-        //{
-        //    var entites = base.GetAll().OrderByDescending(c => c.ManufacturerName).ToList();
-        //    var mappedResult = mapper.Map<List<IVehicleMake>>(entites.ToList());
-        //    return mappedResult;
-        //}
-
-
-        //public VehicleContext VehicleContext
-        //{
-        //    get { return Context as VehicleContext; }
-        //}
-
-
-        //public IEnumerable<VehicleMakeEntity> FindVehicles(string name)
-        //{
-        //    return base.Find((vehicleMake) => ApplyFiltering(vehicleMake, name));
-        //}
-
-        //private bool ApplyFiltering(VehicleMakeEntity entity, string name)
-        //{
-        //    return entity.ManufacturerName == name;
-        //}
-
-        //public VehicleMakeEntity GetSomeVehicle(int? id)
-        //{
-        //    var vehicleMakes = base.VehiclesMakes;
-        //    var vehicleMake =  vehicleMakes.FindAsync(id);
-
-        //}
 
     }
 }

@@ -28,7 +28,7 @@ namespace ProjectVehicle.WebAPI.Controllers
         {
             try
             {
-                var vehicleModel = await vehicleModelService.GetVehicleModelById(id);
+                var vehicleModel = await vehicleModelService.GetVehicleModelServiceAsync(id);
                 if (vehicleModel == null)
                 {
                     return NotFound();
@@ -45,7 +45,7 @@ namespace ProjectVehicle.WebAPI.Controllers
         [HttpGet]        
         public async Task<IEnumerable<VehicleModelRestModel>> GetAllVehiclesModels()
         {
-            var vehicleModel = await vehicleModelService.GetVehicleModelsAsync();
+            var vehicleModel = await vehicleModelService.GetVehiclesModelsServiceAsync();
             var vehicleModelList = new List<VehicleModelRestModel>();
             foreach (var v in vehicleModel)
             {
@@ -99,7 +99,7 @@ namespace ProjectVehicle.WebAPI.Controllers
         {
             try
             {
-                await vehicleModelService.DeleteVehicleModelService(id);
+                await vehicleModelService.DeleteVehicleModelServiceAsync(id);
                 return Ok();
             }
             catch

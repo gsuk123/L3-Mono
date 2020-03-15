@@ -11,9 +11,9 @@ namespace ProjectVehicle.Repository.Common
 {
     public interface IVehicleMakeRepository : IRepository<VehicleMakeEntity>
     {
-        Task<IVehicleMake> GetVehicleMakeIdAsync(int id);
+        Task<IVehicleMake> GetVehicleMakeAsync(int id);
         Task DeleteVehicleMakeAsync(int id);
-        Task<IEnumerable<IVehicleMake>> GetSomeVehiclesAsync();
+        Task<IEnumerable<IVehicleMake>> GetAllVehiclesAsync();
         Task CreateVehicleMakeAsync(IVehicleMake vehicleMake);
         Task EditVehicleMakeAsync(IVehicleMake vehicleMake, int id);
 

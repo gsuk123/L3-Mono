@@ -10,7 +10,7 @@ namespace ProjectVehicle.Repository.Common
 {
     public interface IVehicleModelRepository : IRepository<VehicleModelEntity>
     {
-        Task<IEnumerable<IVehicleModel>> GetSomeVehiclesModelsAsync();
+        Task<IEnumerable<IVehicleModel>> GetVehiclesModelsAsync();
         Task<IVehicleModel> GetVehicleModelIdAsync(int id);
         Task CreateVehicleModelAsync(IVehicleModel vehicleModel);
         Task DeleteVehicleModelAsync(int id);

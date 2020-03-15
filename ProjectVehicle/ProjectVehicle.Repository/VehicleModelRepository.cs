@@ -28,7 +28,7 @@ namespace ProjectVehicle.Repository
             return vehicleModel;
         }
 
-        public async Task<IEnumerable<IVehicleModel>> GetSomeVehiclesModelsAsync()
+        public async Task<IEnumerable<IVehicleModel>> GetVehiclesModelsAsync()
         {
             var entites = await base.GetAllAsync();
             var mappedResult = mapper.Map<List<IVehicleModel>>(entites.ToList());

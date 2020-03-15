@@ -9,10 +9,10 @@ namespace ProjectVehicle.Service.Common
 {
     public interface IVehicleModelService
     {
-        Task<IVehicleModel> GetVehicleModelById(int id);
-        Task<IEnumerable<IVehicleModel>> GetVehicleModelsAsync();
+        Task<IVehicleModel> GetVehicleModelServiceAsync(int id);
+        Task<IEnumerable<IVehicleModel>> GetVehiclesModelsServiceAsync();
         Task CreateVehicleModelServiceAsync(IVehicleModel vehicleModel);
-        Task DeleteVehicleModelService(int id);
+        Task DeleteVehicleModelServiceAsync(int id);
         Task EditVehicleModelServiceAsync(IVehicleModel vehicleModel, int id);
 
     }
