@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectVehicle.Service.Common
+namespace ProjectVehicle.Common.Contracts
 {
     public interface IHelperFactory
     {

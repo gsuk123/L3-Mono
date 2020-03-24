@@ -20,9 +20,9 @@ namespace ProjectVehicle.Repository
         {
             Context = context;
         }
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public Task<IQueryable<TEntity>> GetAllAsync()
         {
-            return await Context.Set<TEntity>().ToListAsync();
+            return Task.FromResult(Context.Set<TEntity>().AsQueryable());
         }
         public async Task<TEntity> GetIdAsync(int id)
         {

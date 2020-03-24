@@ -285,6 +285,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectVehicle.Common\ProjectVehicle.Common.csproj">
+      <Project>{596CD730-C9E6-4F5D-8F46-5032283059E1}</Project>
+      <Name>ProjectVehicle.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectVehicle.DAL\ProjectVehicle.DAL.csproj">
       <Project>{2D331BBA-2351-410F-9827-B27C418CFD8A}</Project>
       <Name>ProjectVehicle.DAL</Name>

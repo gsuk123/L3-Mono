@@ -41,7 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IHelperFactory.cs" />
+    <Compile Include="Contracts\IVehicleFiltering.cs" />
+    <Compile Include="Contracts\IVehiclePaging.cs" />
+    <Compile Include="Contracts\IVehicleSorting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Implementation\VehicleFiltering.cs" />
+    <Compile Include="Implementation\VehiclePaging.cs" />
+    <Compile Include="Implementation\VehicleSorting.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,10 +15,14 @@ namespace ProjectVehicle.DAL.Entities
             public int VehicleModelID { get; set; }
             public string ModelName { get; set; }
             public int ModelYear { get; set; }
-            public string Colour { get; set; }
-            public int VehicleMakeID { get; set; }
-            [ForeignKey("VehicleMakeID")]
-            public virtual VehicleMakeEntity VehicleMake { get; set; }     
+            public string Colour { get; set; }            
+            public int VehicleMakeID { get; set; }                       
+            public int VehicleEngineTypeID { get; set; }            
+            [ForeignKey("VehicleMakeID")] 
+            public virtual VehicleMakeEntity VehicleMake { get; set; }
+            [ForeignKey("VehicleEngineTypeID")]
+            public virtual VehicleEngineTypeEntity VehicleEngineType { get; set; }
+            public virtual ICollection<VehicleRegistrationEntity> VehicleRegistration { get; set; }
 
     }
 }

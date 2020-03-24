@@ -11,7 +11,7 @@ namespace ProjectVehicle.Repository.Common
     public interface IRepository<TEntity> where TEntity : class //Generic interface where T entity is a class
     {
 
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IQueryable<TEntity>> GetAllAsync();
         Task<TEntity> GetIdAsync(int id);
         Task<int> DeleteAsync(TEntity entity);
         Task<TEntity> AddAsync(TEntity entity);

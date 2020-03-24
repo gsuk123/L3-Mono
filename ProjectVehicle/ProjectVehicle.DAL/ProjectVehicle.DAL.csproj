@@ -51,8 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\VehicleEngineTypeEntity.cs" />
     <Compile Include="Entities\VehicleMakeEntity.cs" />
     <Compile Include="Entities\VehicleModelEntity.cs" />
+    <Compile Include="Entities\VehicleOwnerEntity.cs" />
+    <Compile Include="Entities\VehicleRegistrationEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VehicleContext.cs" />
   </ItemGroup>

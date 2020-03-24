@@ -10,6 +10,8 @@ namespace ProjectVehicle.WebAPI
     using Ninject.Web.Common;
     using Ninject.Web.Common.WebHost;
     using Ninject.Web.WebApi.Filter;
+    using ProjectVehicle.Common;
+    using ProjectVehicle.Common.Contracts;
     using ProjectVehicle.DAL.Entities;
     using ProjectVehicle.Model;
     using ProjectVehicle.Model.Common;

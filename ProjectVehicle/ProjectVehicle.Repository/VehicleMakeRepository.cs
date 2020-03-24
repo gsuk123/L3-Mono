@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PagedList;
+using ProjectVehicle.Common.Contracts;
 using ProjectVehicle.DAL;
 using ProjectVehicle.DAL.Entities;
 using ProjectVehicle.Model;

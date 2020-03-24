@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using ProjectVehicle.Common.Contracts;
 using ProjectVehicle.DAL.Entities;
 using ProjectVehicle.Model.Common;
 using ProjectVehicle.Service.Common;

@@ -16,17 +16,14 @@ namespace ProjectVehicle.DAL
 
         public DbSet<VehicleMakeEntity> VehiclesMakes { get; set; }
         public DbSet<VehicleModelEntity> VehiclesModels { get; set; }
+        public DbSet<VehicleEngineTypeEntity> VehicleEngineTypes { get; set; }
+        public DbSet<VehicleRegistrationEntity> VehicleRegistrations { get; set; }
+        public DbSet<VehicleOwnerEntity> VehicleOwners { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-
-
-        //public new IDbSet<TEntity> Set<TEntity>() where TEntity : VehicleMakeEntity
-        //{
-        //    return base.Set<TEntity>();
-        //}
     }
 }

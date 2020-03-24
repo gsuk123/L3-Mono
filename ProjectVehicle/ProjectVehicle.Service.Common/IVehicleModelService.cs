@@ -1,4 +1,5 @@
 ﻿using PagedList;
+using ProjectVehicle.Common.Contracts;
 using ProjectVehicle.Model.Common;
 using System;
 using System.Collections.Generic;

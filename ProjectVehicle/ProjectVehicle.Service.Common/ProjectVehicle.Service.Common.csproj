@@ -44,15 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IHelperFactory.cs" />
-    <Compile Include="IVehicleFiltering.cs" />
     <Compile Include="IVehicleMakeService.cs" />
     <Compile Include="IVehicleModelService.cs" />
-    <Compile Include="IVehiclePaging.cs" />
-    <Compile Include="IVehicleSorting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProjectVehicle.Common\ProjectVehicle.Common.csproj">
+      <Project>{596CD730-C9E6-4F5D-8F46-5032283059E1}</Project>
+      <Name>ProjectVehicle.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProjectVehicle.Model.Common\ProjectVehicle.Model.Common.csproj">
       <Project>{157BD48B-E167-4277-94F6-7AFEF4199A2F}</Project>
       <Name>ProjectVehicle.Model.Common</Name>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PagedList;
+using ProjectVehicle.Common.Contracts;
 using ProjectVehicle.Model.Common;
 using ProjectVehicle.Service.Common;
 using ProjectVehicle.WebAPI.Models;
