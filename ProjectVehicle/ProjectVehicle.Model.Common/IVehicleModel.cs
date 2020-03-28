@@ -13,6 +13,8 @@ namespace ProjectVehicle.Model.Common
         int ModelYear { get; set; }
         string Colour { get; set; }
         int VehicleMakeID { get; set; }
+        int VehicleEngineTypeID { get; set; }
         IVehicleMake VehicleMake { get; set; }
+        IVehicleEngineType VehicleEngineType { get; set; }
     }
 }

@@ -9,21 +9,23 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using ProjectVehicle.DAL.Entities;
 using System.Linq.Expressions;
+using ProjectVehicle.Common.Contracts;
 
 namespace ProjectVehicle.Repository
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext Context; 
+        protected readonly DbContext Context;
 
         public Repository(DbContext context)
         {
-            Context = context;
+            Context = context;            
         }
         public Task<IQueryable<TEntity>> GetAllAsync()
         {
             return Task.FromResult(Context.Set<TEntity>().AsQueryable());
         }
+
         public async Task<TEntity> GetIdAsync(int id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
@@ -53,6 +55,8 @@ namespace ProjectVehicle.Repository
             Context.Set<TEntity>().Remove(entity);
             return await Context.SaveChangesAsync();
         }
+
+
 
     }
 }

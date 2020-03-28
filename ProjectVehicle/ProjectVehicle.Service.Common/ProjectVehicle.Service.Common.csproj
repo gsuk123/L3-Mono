@@ -44,8 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IVehicleEngineTypeService.cs" />
     <Compile Include="IVehicleMakeService.cs" />
     <Compile Include="IVehicleModelService.cs" />
+    <Compile Include="IVehicleOwnerService.cs" />
+    <Compile Include="IVehicleRegistrationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

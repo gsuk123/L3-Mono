@@ -13,12 +13,11 @@ namespace ProjectVehicle.Repository.Common
 {
     public interface IVehicleModelRepository : IRepository<VehicleModelEntity>
     {
-        Task<IEnumerable<IVehicleModel>> GetVehiclesModelsAsync();
+       
         Task<IVehicleModel> GetVehicleModelIdAsync(int id);
         Task CreateVehicleModelAsync(IVehicleModel vehicleModel);
         Task DeleteVehicleModelAsync(int id);
         Task EditVehicleModelAsync(IVehicleModel vehicleModel, int id);
-
-        Task<IPagedList<IVehicleModel>> FindVehicleModelAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null);
+        Task<IPagedList<IVehicleModel>> GetVehicleModelsAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null);
     }
 }

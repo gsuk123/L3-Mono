@@ -34,6 +34,25 @@ namespace ProjectVehicle.WebAPI.Controllers
         }
 
         [HttpGet]
+        public async Task<IPagedList<VehicleMakeRestModel>> GetVehiclesMake(
+            string sort = null,
+            string search = null,
+            int? page = null)
+        {
+            var filtering = helperFactory.CreateVehicleFiltering();
+            filtering.Filter = search;
+            var sorting = helperFactory.CreateVehicleSorting();
+            sorting.Sort = sort;
+            var paging = helperFactory.CreateVehiclePaging();
+            paging.Page = page;
+
+            var vehicleMakes = await vehicleMakeService.GetVehiclesMakeServiceAsync(sorting, filtering, paging);
+            List<VehicleMakeRestModel> vehicleMakeList = mapper.Map<List<VehicleMakeRestModel>>(vehicleMakes.ToList());
+
+            return new StaticPagedList<VehicleMakeRestModel>(vehicleMakeList, vehicleMakes.PageNumber, vehicleMakes.PageSize, vehicleMakes.TotalItemCount);            
+        }
+
+        [HttpGet]
         public async Task<IHttpActionResult> GetVehicleMake(int id)
         {
             try
@@ -43,8 +62,8 @@ namespace ProjectVehicle.WebAPI.Controllers
                 {
                     return NotFound();
                 }
-                VehicleMakeRestModel vehicleMakeRM = mapper.Map<VehicleMakeRestModel>(vehicleMake);
-                return Ok(vehicleMakeRM);
+                VehicleMakeRestModel vehicleMakeRest = mapper.Map<VehicleMakeRestModel>(vehicleMake);
+                return Ok(vehicleMakeRest);
             }
             catch
             {
@@ -52,26 +71,12 @@ namespace ProjectVehicle.WebAPI.Controllers
             }
         }
 
-
-        [HttpGet]        
-        public async Task<IEnumerable<VehicleMakeRestModel>> GetAllVehicles()
-        {
-            var vehicleMake = await vehicleMakeService.GetVehicleMakesServiceAsync();
-            var vehicleMakeList = new List<VehicleMakeRestModel>();
-            foreach (var v in vehicleMake)
-            {
-                VehicleMakeRestModel vehicleMakeRest = mapper.Map<VehicleMakeRestModel>(v);
-                vehicleMakeList.Add(vehicleMakeRest);
-            }
-            return vehicleMakeList;
-        }
-
         [HttpPost]
-        public async Task<IHttpActionResult> CreateVehicleMake([FromBody]VehicleMakeRestModel vehicleMakeRM)
+        public async Task<IHttpActionResult> CreateVehicleMake([FromBody]VehicleMakeRestModel vehicleMakeRest)
         {
             try
             {
-                var vehicleMake = mapper.Map<IVehicleMake>(vehicleMakeRM);
+                var vehicleMake = mapper.Map<IVehicleMake>(vehicleMakeRest);
                 await vehicleMakeService.CreateVehicleMakeServiceAsync(vehicleMake);
                 return Ok(vehicleMake);
             }
@@ -83,11 +88,11 @@ namespace ProjectVehicle.WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> EditVehicleMake([FromBody]VehicleMakeRestModel vehicleMakeRM, int id)
+        public async Task<IHttpActionResult> EditVehicleMake([FromBody]VehicleMakeRestModel vehicleMakeRest, int id)
         {
             try
             {
-                var vehicleMake = mapper.Map<IVehicleMake>(vehicleMakeRM);
+                var vehicleMake = mapper.Map<IVehicleMake>(vehicleMakeRest);
                 await vehicleMakeService.EditVehicleMakeServiceAsync(vehicleMake, id);
                 return Ok(vehicleMake);
             }
@@ -95,7 +100,6 @@ namespace ProjectVehicle.WebAPI.Controllers
             {
                 return InternalServerError();
             }
-
         }
 
         [HttpDelete]
@@ -110,31 +114,6 @@ namespace ProjectVehicle.WebAPI.Controllers
             {
                 return InternalServerError();
             }
-
-        }
-
-        [HttpGet]
-        public async Task<IPagedList<VehicleMakeRestModel>> Find(
-            string sortVehicle = null, 
-            string searchVehicle = null,
-            int? pageVehicle = null)
-        {
-            var filter = helperFactory.CreateVehicleFiltering();
-            filter.Filter = searchVehicle;
-            var sort = helperFactory.CreateVehicleSorting();
-            sort.Sort = sortVehicle;
-            var page = helperFactory.CreateVehiclePaging();
-            page.Page = pageVehicle;
-
-            var vehicles = await vehicleMakeService.FindVehicleMakeServiceAsync(sort, filter, page);
-            var vehiclesList = new List<VehicleMakeRestModel>();
-            foreach(var v in vehicles)
-            {
-                VehicleMakeRestModel vehicleMakeRM = mapper.Map<VehicleMakeRestModel>(v);
-                vehiclesList.Add(vehicleMakeRM);
-            }
-            var vehiclePagedList = new StaticPagedList<VehicleMakeRestModel>(vehiclesList, vehicles.PageNumber, vehicles.PageSize, vehicles.TotalItemCount);
-            return vehiclePagedList;
         }
 
     }

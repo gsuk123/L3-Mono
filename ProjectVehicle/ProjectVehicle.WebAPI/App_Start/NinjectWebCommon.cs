@@ -79,20 +79,41 @@ namespace ProjectVehicle.WebAPI
             kernel.Bind<IVehicleSorting>().To<VehicleSorting>();
             kernel.Bind<IVehiclePaging>().To<VehiclePaging>();
             kernel.Bind<IVehicleFiltering>().To<VehicleFiltering>();
+
             kernel.Bind<IVehicleMakeService>().To<VehicleMakeService>();
             kernel.Bind<IVehicleMakeRepository>().To<VehicleMakeRepository>();
+
             kernel.Bind<IVehicleModelService>().To<VehicleModelService>();
             kernel.Bind<IVehicleModelRepository>().To<VehicleModelRepository>();
-            
+
+            kernel.Bind<IVehicleEngineTypeService>().To<VehicleEngineTypeService>();
+            kernel.Bind<IVehicleEngineTypeRepository>().To<VehicleEngineTypeRepository>();
+
+            kernel.Bind<IVehicleOwnerService>().To<VehicleOwnerService>();
+            kernel.Bind<IVehicleOwnerRepository>().To<VehicleOwnerRepository>();
+
+            kernel.Bind<IVehicleRegistrationService>().To<VehicleRegistrationService>();
+            kernel.Bind<IVehicleRegistrationRepository>().To<VehicleRegistrationRepository>();
+
             kernel.Bind<IMapper>().ToMethod((context) =>
             {
 
                 var config = new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<VehicleMakeEntity, IVehicleMake>().ReverseMap();
-                    cfg.CreateMap<VehicleMakeRestModel, IVehicleMake>().ReverseMap();
+                    cfg.CreateMap<VehicleMakeRestModel, IVehicleMake>().ReverseMap();                    
+
                     cfg.CreateMap<VehicleModelEntity, IVehicleModel>().ReverseMap();
                     cfg.CreateMap<VehicleModelRestModel, IVehicleModel>().ReverseMap();
+
+                    cfg.CreateMap<VehicleEngineTypeEntity, IVehicleEngineType>().ReverseMap();
+                    cfg.CreateMap<VehicleEngineTypeRestModel, IVehicleEngineType>().ReverseMap();
+
+                    cfg.CreateMap<VehicleRegistrationEntity, IVehicleRegistration>().ReverseMap();
+                    cfg.CreateMap<VehicleRegistrationRestModel, IVehicleRegistration>().ReverseMap();
+
+                    cfg.CreateMap<VehicleOwnerEntity, IVehicleOwner>().ReverseMap();
+                    cfg.CreateMap<VehicleOwnerRestModel, IVehicleOwner>().ReverseMap();
 
                 });
 

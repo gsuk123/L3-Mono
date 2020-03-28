@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace ProjectVehicle.Repository.Common
 {
-    public interface IRepository<TEntity> where TEntity : class //Generic interface where T entity is a class
+    public interface IRepository<TEntity> where TEntity : class 
     {
-
         Task<IQueryable<TEntity>> GetAllAsync();
         Task<TEntity> GetIdAsync(int id);
         Task<int> DeleteAsync(TEntity entity);
         Task<TEntity> AddAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity updated, int id);
-
     }
 }

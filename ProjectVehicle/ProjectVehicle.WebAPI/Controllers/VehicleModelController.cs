@@ -28,6 +28,27 @@ namespace ProjectVehicle.WebAPI.Controllers
         }
 
         [HttpGet]
+        public async Task<IPagedList<VehicleModelRestModel>> GetVehicleModels(
+                string sort = null,
+                string search = null,
+                int? page = null,
+                int? makeId = null)
+        {
+
+            var filtering = helperFactory.CreateVehicleFiltering();
+            filtering.Filter = search;
+            var sorting = helperFactory.CreateVehicleSorting();
+            sorting.Sort = sort;
+            var paging = helperFactory.CreateVehiclePaging();
+            paging.Page = page;
+
+            var vehicleModels = await vehicleModelService.GetVehicleModelsServiceAsync(sorting, filtering, paging, makeId);
+            List<VehicleModelRestModel> vehicleModelsList = mapper.Map<List<VehicleModelRestModel>>(vehicleModels.ToList());
+
+            return new StaticPagedList<VehicleModelRestModel>(vehicleModelsList, vehicleModels.PageNumber, vehicleModels.PageSize, vehicleModels.TotalItemCount);            
+        }
+
+        [HttpGet]
         public async Task<IHttpActionResult> GetVehicleModel(int id)
         {
             try
@@ -37,8 +58,8 @@ namespace ProjectVehicle.WebAPI.Controllers
                 {
                     return NotFound();
                 }
-                VehicleModelRestModel vehicleModelRM = mapper.Map<VehicleModelRestModel>(vehicleModel);
-                return Ok(vehicleModelRM);
+                VehicleModelRestModel vehicleModelRest = mapper.Map<VehicleModelRestModel>(vehicleModel);
+                return Ok(vehicleModelRest);
             }
             catch
             {
@@ -46,25 +67,12 @@ namespace ProjectVehicle.WebAPI.Controllers
             }
         }
 
-        [HttpGet]        
-        public async Task<IEnumerable<VehicleModelRestModel>> GetAllVehiclesModels()
-        {
-            var vehicleModel = await vehicleModelService.GetVehiclesModelsServiceAsync();
-            var vehicleModelList = new List<VehicleModelRestModel>();
-            foreach (var v in vehicleModel)
-            {
-                VehicleModelRestModel vehicleModelRest = mapper.Map<VehicleModelRestModel>(v);
-                vehicleModelList.Add(vehicleModelRest);
-            }
-            return vehicleModelList;
-        }
-
         [HttpPost]
-        public async Task<IHttpActionResult> CreateVehicleModel([FromBody]VehicleModelRestModel vehicleModelRM)
+        public async Task<IHttpActionResult> CreateVehicleModel([FromBody]VehicleModelRestModel vehicleModelRest)
         {
             try
             {
-                var vehicleModel = mapper.Map<IVehicleModel>(vehicleModelRM);
+                var vehicleModel = mapper.Map<IVehicleModel>(vehicleModelRest);
                 await vehicleModelService.CreateVehicleModelServiceAsync(vehicleModel);
                 return Ok(vehicleModel);
             }
@@ -76,11 +84,11 @@ namespace ProjectVehicle.WebAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> EditVehicleModel([FromBody]VehicleModelRestModel vehicleModelRM, int id)
+        public async Task<IHttpActionResult> EditVehicleModel([FromBody]VehicleModelRestModel vehicleModelRest, int id)
         {
             try
             {
-                var vehicleModel = mapper.Map<IVehicleModel>(vehicleModelRM);
+                var vehicleModel = mapper.Map<IVehicleModel>(vehicleModelRest);
                 await vehicleModelService.EditVehicleModelServiceAsync(vehicleModel, id);
                 return Ok(vehicleModel);
             }
@@ -102,36 +110,7 @@ namespace ProjectVehicle.WebAPI.Controllers
             {
                 return InternalServerError();
             }
-        }
-
-        
-        [HttpGet]
-        public async Task<IPagedList<VehicleModelRestModel>> Find(
-            string sortVehicle = null,            
-            string searchVehicle = null,
-            int? pageVehicle = null,
-            int? makeId = null)
-        {
-
-
-            var filter = helperFactory.CreateVehicleFiltering();
-            filter.Filter = searchVehicle;
-            var sort = helperFactory.CreateVehicleSorting();
-            sort.Sort = sortVehicle;
-            var page = helperFactory.CreateVehiclePaging();
-            page.Page = pageVehicle;
-
-            var vehicles = await vehicleModelService.FindVehicleModelServiceAsync(sort, filter, page, makeId);
-            var vehiclesList = new List<VehicleModelRestModel>();
-            foreach (var v in vehicles)
-            {
-                VehicleModelRestModel vehicleModelRM = mapper.Map<VehicleModelRestModel>(v);
-                vehiclesList.Add(vehicleModelRM);
-            }
-            var vehiclePagedList = new StaticPagedList<VehicleModelRestModel>(vehiclesList, vehicles.PageNumber, vehicles.PageSize, vehicles.TotalItemCount);
-            return vehiclePagedList;
-
-        }
+        }      
 
     }
 }

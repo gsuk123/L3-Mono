@@ -44,9 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VehicleRegistrationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VehicleEngineTypeService.cs" />
     <Compile Include="VehicleMakeService.cs" />
     <Compile Include="VehicleModelService.cs" />
+    <Compile Include="VehicleOwnerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProjectVehicle.Common\ProjectVehicle.Common.csproj">

@@ -20,22 +20,14 @@ namespace ProjectVehicle.Service
         {
             this.vehicleMakeRepository = vehicleMakeRepository;
         }
-
         public Task<IVehicleMake> GetVehicleMakeServiceAsync(int id)
         {
             return vehicleMakeRepository.GetVehicleMakeAsync(id);            
         }
-
-        public Task<IEnumerable<IVehicleMake>> GetVehicleMakesServiceAsync()
-        {
-            return vehicleMakeRepository.GetAllVehiclesAsync();               
-        }
-
         public Task CreateVehicleMakeServiceAsync(IVehicleMake vehicleMake)
         {
             return vehicleMakeRepository.CreateVehicleMakeAsync(vehicleMake);
         }
-
         public Task EditVehicleMakeServiceAsync(IVehicleMake vehicleMake, int id)
         {
             return vehicleMakeRepository.EditVehicleMakeAsync(vehicleMake, id);
@@ -43,12 +35,10 @@ namespace ProjectVehicle.Service
         public Task DeleteVehicleMakeServiceAsync(int id)
         {
             return vehicleMakeRepository.DeleteVehicleMakeAsync(id);            
-        }
-
-        
-        public Task<IPagedList<IVehicleMake>> FindVehicleMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
+        }        
+        public Task<IPagedList<IVehicleMake>> GetVehiclesMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
         {
-            return vehicleMakeRepository.FindVehicleMakeAsync(sort, filter, page);
+            return vehicleMakeRepository.GetVehiclesMakeAsync(sort, filter, page);
         }
     }
 }

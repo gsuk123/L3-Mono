@@ -24,12 +24,6 @@ namespace ProjectVehicle.Service
         {
             return vehicleModelRepository.GetVehicleModelIdAsync(id);            
         }
-
-        public Task<IEnumerable<IVehicleModel>> GetVehiclesModelsServiceAsync()
-        {
-            return vehicleModelRepository.GetVehiclesModelsAsync();            
-        }
-
         public Task CreateVehicleModelServiceAsync(IVehicleModel vehicleModel)
         {
             return vehicleModelRepository.CreateVehicleModelAsync(vehicleModel);
@@ -38,15 +32,13 @@ namespace ProjectVehicle.Service
         {
             return vehicleModelRepository.EditVehicleModelAsync(vehicleModel, id);
         }
-
         public Task DeleteVehicleModelServiceAsync(int id)
         {
             return vehicleModelRepository.DeleteVehicleModelAsync(id);            
         }
-
-        public Task<IPagedList<IVehicleModel>> FindVehicleModelServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null)
+        public Task<IPagedList<IVehicleModel>> GetVehicleModelsServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null)
         {
-            return vehicleModelRepository.FindVehicleModelAsync(sort, filter, page, makeId);
+            return vehicleModelRepository.GetVehicleModelsAsync(sort, filter, page, makeId);
         }
 
     }

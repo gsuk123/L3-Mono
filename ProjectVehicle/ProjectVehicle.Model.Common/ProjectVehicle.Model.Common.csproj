@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IVehicleEngineType.cs" />
     <Compile Include="IVehicleMake.cs" />
     <Compile Include="IVehicleModel.cs" />
+    <Compile Include="IVehicleOwner.cs" />
+    <Compile Include="IVehicleRegistration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

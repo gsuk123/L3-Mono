@@ -14,6 +14,8 @@ namespace ProjectVehicle.Model
         public int ModelYear { get; set; }
         public string Colour { get; set; }
         public int VehicleMakeID { get; set; }
+        public int VehicleEngineTypeID { get; set; }
         public IVehicleMake VehicleMake { get; set; }
+        public IVehicleEngineType VehicleEngineType { get; set; }
     }
 }

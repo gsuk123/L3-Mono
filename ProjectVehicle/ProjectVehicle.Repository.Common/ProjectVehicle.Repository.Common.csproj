@@ -46,8 +46,11 @@
   <ItemGroup>
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IVehicleEngineTypeRepository.cs" />
     <Compile Include="IVehicleMakeRepository.cs" />
     <Compile Include="IVehicleModelRepository.cs" />
+    <Compile Include="IVehicleOwnerRepository.cs" />
+    <Compile Include="IVehicleRegistrationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

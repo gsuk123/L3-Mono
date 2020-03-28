@@ -13,10 +13,13 @@ namespace ProjectVehicle.DAL.Entities
     {
             [Key]
             public int VehicleModelID { get; set; }
+            [Required]
             public string ModelName { get; set; }
+            [Required]
             public int ModelYear { get; set; }
-            public string Colour { get; set; }            
-            public int VehicleMakeID { get; set; }                       
+            [Required]
+            public string Colour { get; set; }
+            public int VehicleMakeID { get; set; }            
             public int VehicleEngineTypeID { get; set; }            
             [ForeignKey("VehicleMakeID")] 
             public virtual VehicleMakeEntity VehicleMake { get; set; }

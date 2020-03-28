@@ -11,13 +11,11 @@ namespace ProjectVehicle.Service.Common
 {
     public interface IVehicleModelService
     {
-        Task<IVehicleModel> GetVehicleModelServiceAsync(int id);
-        Task<IEnumerable<IVehicleModel>> GetVehiclesModelsServiceAsync();
+        Task<IVehicleModel> GetVehicleModelServiceAsync(int id);        
         Task CreateVehicleModelServiceAsync(IVehicleModel vehicleModel);
         Task DeleteVehicleModelServiceAsync(int id);
         Task EditVehicleModelServiceAsync(IVehicleModel vehicleModel, int id);
-
-        Task<IPagedList<IVehicleModel>> FindVehicleModelServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null);
+        Task<IPagedList<IVehicleModel>> GetVehicleModelsServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, int? makeId = null);
 
     }
 }

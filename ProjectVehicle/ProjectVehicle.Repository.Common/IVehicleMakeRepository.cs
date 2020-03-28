@@ -15,10 +15,9 @@ namespace ProjectVehicle.Repository.Common
     public interface IVehicleMakeRepository : IRepository<VehicleMakeEntity>
     {
         Task<IVehicleMake> GetVehicleMakeAsync(int id);
-        Task DeleteVehicleMakeAsync(int id);
-        Task<IEnumerable<IVehicleMake>> GetAllVehiclesAsync();
+        Task DeleteVehicleMakeAsync(int id);        
         Task CreateVehicleMakeAsync(IVehicleMake vehicleMake);
         Task EditVehicleMakeAsync(IVehicleMake vehicleMake, int id);        
-        Task<IPagedList<IVehicleMake>> FindVehicleMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page);
+        Task<IPagedList<IVehicleMake>> GetVehiclesMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page);
     }
 }

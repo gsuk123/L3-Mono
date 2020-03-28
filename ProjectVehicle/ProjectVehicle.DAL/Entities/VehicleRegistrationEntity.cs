@@ -13,6 +13,9 @@ namespace ProjectVehicle.DAL.Entities
     {
         [Key]
         public int ID { get; set; }
+        [Index(IsUnique = true)]
+        [StringLength(15)]
+        [Required]
         public string RegistrationNumber { get; set; }
         public int VehicleModelId { get; set; }              
         public int VehicleOwnerId { get; set; }        

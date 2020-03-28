@@ -13,9 +13,12 @@ namespace ProjectVehicle.DAL.Entities
     {        
         [Key]
         public int ID { get; set; }
+        [Required]
         public string ManufacturerName { get; set; }
+        [Required]
         public string MadeIn { get; set; }
         public virtual ICollection<VehicleModelEntity> VehicleModels { get; set; }
+
     }
     
 }

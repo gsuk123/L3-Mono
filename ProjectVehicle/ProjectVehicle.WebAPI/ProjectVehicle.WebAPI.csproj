@@ -193,13 +193,19 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\VehicleEngineTypeController.cs" />
     <Compile Include="Controllers\VehicleMakeController.cs" />
     <Compile Include="Controllers\VehicleModelController.cs" />
+    <Compile Include="Controllers\VehicleOwnerController.cs" />
+    <Compile Include="Controllers\VehicleRegistrationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\VehicleEngineTypeRestModel.cs" />
     <Compile Include="Models\VehicleMakeRestModel.cs" />
     <Compile Include="Models\VehicleModelRestModel.cs" />
+    <Compile Include="Models\VehicleOwnerRestModel.cs" />
+    <Compile Include="Models\VehicleRegistrationRestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

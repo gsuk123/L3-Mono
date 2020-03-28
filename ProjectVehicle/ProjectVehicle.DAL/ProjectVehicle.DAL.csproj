@@ -58,6 +58,7 @@
     <Compile Include="Entities\VehicleRegistrationEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VehicleContext.cs" />
+    <Compile Include="VehicleInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

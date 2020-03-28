@@ -12,5 +12,6 @@ namespace ProjectVehicle.WebAPI.Models
         public int ModelYear { get; set; }
         public string Colour { get; set; }
         public int VehicleMakeID { get; set; }
+        public int VehicleEngineTypeID { get; set; }
     }
 }

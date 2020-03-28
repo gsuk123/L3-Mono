@@ -6,7 +6,6 @@ using ProjectVehicle.DAL.Entities;
 using ProjectVehicle.Model;
 using ProjectVehicle.Model.Common;
 using ProjectVehicle.Repository.Common;
-using ProjectVehicle.Service.Common;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -27,6 +26,44 @@ namespace ProjectVehicle.Repository
             this.mapper = mapper;
         }
 
+        public async Task<IPagedList<IVehicleMake>> GetVehiclesMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
+        {
+            var vehicleMakesEntity = await base.GetAllAsync();
+
+            var searchVehicle = filter.Filter;
+            var sortVehicle = sort.Sort;
+
+            if (!String.IsNullOrEmpty(searchVehicle))
+            {
+                vehicleMakesEntity = vehicleMakesEntity.Where(v => v.ManufacturerName.Contains(searchVehicle)
+                                       || v.MadeIn.Contains(searchVehicle));
+            }
+            switch (sortVehicle)
+            {
+                case "name_desc":
+                    vehicleMakesEntity = vehicleMakesEntity.OrderByDescending(v => v.ManufacturerName);
+                    break;
+                case "madein_desc":
+                    vehicleMakesEntity = vehicleMakesEntity.OrderByDescending(v => v.MadeIn);
+                    break;
+                default:
+                    vehicleMakesEntity = vehicleMakesEntity.OrderBy(v => v.ManufacturerName);
+                    break;
+            }
+
+            int pageSize = 3;
+            var totalItemCount = vehicleMakesEntity.Count();
+            
+            var pageCount = (double)totalItemCount / pageSize;
+            var pageNumber = (int)Math.Ceiling(pageCount);
+
+            var skip = ((page.Page ?? 1) - 1) * pageSize;
+            var pageResult = vehicleMakesEntity.Skip(skip).Take(pageSize).ToList();
+            var vehicleMakesList = mapper.Map<List<IVehicleMake>>(pageResult);
+
+            return new StaticPagedList<IVehicleMake>(vehicleMakesList, pageNumber, pageSize, totalItemCount);
+        }
+
         public async Task<IVehicleMake> GetVehicleMakeAsync(int id)
         {
             var vehicleMakeEntity = await base.GetIdAsync(id);
@@ -34,61 +71,23 @@ namespace ProjectVehicle.Repository
             return vehicleMake;
         }
 
-        public async Task<IEnumerable<IVehicleMake>> GetAllVehiclesAsync()
-        {
-            var entites = await base.GetAllAsync();
-            var mappedResult = mapper.Map<List<IVehicleMake>>(entites.ToList());
-            return mappedResult;
-        }
         public async Task CreateVehicleMakeAsync(IVehicleMake vehicleMake)
         {
-            VehicleMakeEntity vehicleMakeEM = mapper.Map<VehicleMakeEntity>(vehicleMake);
-            await base.AddAsync(vehicleMakeEM);
+            VehicleMakeEntity vehicleMakeEntity = mapper.Map<VehicleMakeEntity>(vehicleMake);
+            await base.AddAsync(vehicleMakeEntity);
         }
 
         public async Task EditVehicleMakeAsync(IVehicleMake vehicleMake, int id)
         {
-            VehicleMakeEntity vehicleMakeEM = mapper.Map<VehicleMakeEntity>(vehicleMake);
-            await base.UpdateAsync(vehicleMakeEM, id);
+            VehicleMakeEntity vehicleMakeEntity = mapper.Map<VehicleMakeEntity>(vehicleMake);
+            await base.UpdateAsync(vehicleMakeEntity, id);
         }
 
         public async Task DeleteVehicleMakeAsync(int id)
         {
             var vehicleMakeEntity = await base.GetIdAsync(id);
-            await base.DeleteAsync(vehicleMakeEntity);         
-            
-        }
-
-        public async Task<IPagedList<IVehicleMake>> FindVehicleMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
-        {
-            var vehicles = await base.GetAllAsync();
-
-            var searchVehicle = filter.Filter;
-            var sortVehicle = sort.Sort;
-
-            if (!String.IsNullOrEmpty(searchVehicle))
-            {
-                vehicles = vehicles.Where(v => v.ManufacturerName.Contains(searchVehicle)
-                                       || v.MadeIn.Contains(searchVehicle));
-            }
-            switch (sortVehicle)
-            {
-                case "name_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.ManufacturerName);
-                    break;
-                case "madein_desc":
-                    vehicles = vehicles.OrderByDescending(v => v.MadeIn);
-                    break;
-                default:
-                    vehicles = vehicles.OrderBy(v => v.ManufacturerName);
-                    break;
-            }
-            var mappedList = mapper.Map<List<IVehicleMake>>(vehicles.ToList());
-            var pagedList = mappedList.ToPagedList(page.Page ?? 1, 3);
-
-            return pagedList;
+            await base.DeleteAsync(vehicleMakeEntity);       
 
         }
-
     }
 }

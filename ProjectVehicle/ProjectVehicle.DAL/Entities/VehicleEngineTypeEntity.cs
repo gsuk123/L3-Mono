@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectVehicle.DAL.Entities
 {
+
     [Table("VehicleEngineType")]
     public class VehicleEngineTypeEntity
     {
