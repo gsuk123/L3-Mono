@@ -26,12 +26,15 @@ namespace ProjectVehicle.Repository
             this.mapper = mapper;
         }
 
-        public async Task<IPagedList<IVehicleMake>> GetVehiclesMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
+        public async Task<IPagedList<IVehicleMake>> GetVehiclesMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, IVehiclePaging pageSizeTest)
         {
             var vehicleMakesEntity = await base.GetAllAsync();
+            
 
             var searchVehicle = filter.Filter;
             var sortVehicle = sort.Sort;
+            var pageSizeVehicle = pageSizeTest.PageSize;
+            int defaultPageSize = 3;
 
             if (!String.IsNullOrEmpty(searchVehicle))
             {
@@ -41,7 +44,7 @@ namespace ProjectVehicle.Repository
             switch (sortVehicle)
             {
                 case "name_desc":
-                    vehicleMakesEntity = vehicleMakesEntity.OrderByDescending(v => v.ManufacturerName);
+                    vehicleMakesEntity = vehicleMakesEntity.OrderByDescending(v => v.ManufacturerName); 
                     break;
                 case "madein_desc":
                     vehicleMakesEntity = vehicleMakesEntity.OrderByDescending(v => v.MadeIn);
@@ -51,8 +54,9 @@ namespace ProjectVehicle.Repository
                     break;
             }
 
-            int pageSize = 3;
-            var totalItemCount = vehicleMakesEntity.Count();
+            int pageSize = pageSizeVehicle ?? defaultPageSize;
+
+            var totalItemCount = vehicleMakesEntity.Count(); 
             
             var pageCount = (double)totalItemCount / pageSize;
             var pageNumber = (int)Math.Ceiling(pageCount);

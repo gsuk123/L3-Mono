@@ -18,6 +18,6 @@ namespace ProjectVehicle.Repository.Common
         Task DeleteVehicleMakeAsync(int id);        
         Task CreateVehicleMakeAsync(IVehicleMake vehicleMake);
         Task EditVehicleMakeAsync(IVehicleMake vehicleMake, int id);        
-        Task<IPagedList<IVehicleMake>> GetVehiclesMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page);
+        Task<IPagedList<IVehicleMake>> GetVehiclesMakeAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, IVehiclePaging pageSizeTest);
     }
 }

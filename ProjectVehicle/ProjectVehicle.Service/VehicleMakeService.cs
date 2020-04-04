@@ -36,9 +36,9 @@ namespace ProjectVehicle.Service
         {
             return vehicleMakeRepository.DeleteVehicleMakeAsync(id);            
         }        
-        public Task<IPagedList<IVehicleMake>> GetVehiclesMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page)
+        public Task<IPagedList<IVehicleMake>> GetVehiclesMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, IVehiclePaging pageSize)
         {
-            return vehicleMakeRepository.GetVehiclesMakeAsync(sort, filter, page);
+            return vehicleMakeRepository.GetVehiclesMakeAsync(sort, filter, page, pageSize);
         }
     }
 }

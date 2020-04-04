@@ -16,7 +16,7 @@ namespace ProjectVehicle.Service.Common
         Task DeleteVehicleMakeServiceAsync(int id);        
         Task CreateVehicleMakeServiceAsync(IVehicleMake vehicleMake);
         Task EditVehicleMakeServiceAsync(IVehicleMake vehicleMake, int id);     
-        Task<IPagedList<IVehicleMake>> GetVehiclesMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page);
+        Task<IPagedList<IVehicleMake>> GetVehiclesMakeServiceAsync(IVehicleSorting sort, IVehicleFiltering filter, IVehiclePaging page, IVehiclePaging pageSize);
 
 
     }

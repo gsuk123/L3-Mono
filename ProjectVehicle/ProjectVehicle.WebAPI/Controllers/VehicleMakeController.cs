@@ -37,7 +37,8 @@ namespace ProjectVehicle.WebAPI.Controllers
         public async Task<IPagedList<VehicleMakeRestModel>> GetVehiclesMake(
             string sort = null,
             string search = null,
-            int? page = null)
+            int? page = null,
+            int? pageSize = null)
         {
             var filtering = helperFactory.CreateVehicleFiltering();
             filtering.Filter = search;
@@ -45,9 +46,11 @@ namespace ProjectVehicle.WebAPI.Controllers
             sorting.Sort = sort;
             var paging = helperFactory.CreateVehiclePaging();
             paging.Page = page;
+            var pagingSize = helperFactory.CreateVehiclePaging();
+            pagingSize.PageSize = pageSize;
 
-            var vehicleMakes = await vehicleMakeService.GetVehiclesMakeServiceAsync(sorting, filtering, paging);
-            List<VehicleMakeRestModel> vehicleMakeList = mapper.Map<List<VehicleMakeRestModel>>(vehicleMakes.ToList());
+            var vehicleMakes = await vehicleMakeService.GetVehiclesMakeServiceAsync(sorting, filtering, paging, pagingSize);
+            List<VehicleMakeRestModel> vehicleMakeList = mapper.Map<List<VehicleMakeRestModel>>(vehicleMakes.ToList());            
 
             return new StaticPagedList<VehicleMakeRestModel>(vehicleMakeList, vehicleMakes.PageNumber, vehicleMakes.PageSize, vehicleMakes.TotalItemCount);            
         }

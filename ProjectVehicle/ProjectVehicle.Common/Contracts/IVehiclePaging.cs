@@ -9,5 +9,6 @@ namespace ProjectVehicle.Common.Contracts
     public interface IVehiclePaging
     {
         int? Page { get; set; }
+        int? PageSize { get; set; }
     }
 }
